@@ -1,0 +1,22 @@
+# API
+ENV=local
+VERSION=1.0.0
+PORT=3000
+LOG=debug
+DATA=../data
+
+# URLS
+URL_API=http://localhost:3000
+URL_SITE=http://localhost:8080
+
+# KNEX
+DB_HOST=host
+DB_DATABASE=db
+DB_USER=user
+DB_PASSWORD=password
+
+# AUTH
+JWT_SECRET=jwtescret
+JWT_EXPIRES=1d
+RATE_LIMIT_MS=900000
+RATE_LIMIT_MAX=100

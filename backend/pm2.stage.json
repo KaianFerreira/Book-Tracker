@@ -1,0 +1,6 @@
+{
+  "name": "template",
+  "script": "server.js",
+  "args": "3000",
+  "autorestart": true
+}
