@@ -9,5 +9,8 @@ module.exports = config
 module.exports = async () => {
   return {
     verbose: true,
+    coveragePathIgnorePatterns: [
+      '/node_modules/'
+    ]
   }
 }
