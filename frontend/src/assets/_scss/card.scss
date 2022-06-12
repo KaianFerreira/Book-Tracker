@@ -1,0 +1,27 @@
+.card {
+  background-color: #fff;
+  box-shadow: $box-shadow;
+  border-radius: 5px;
+  padding-bottom: 10px;
+  min-height: 370px;
+  &:not(:last-child) {
+    margin-bottom: 30px;
+  }
+  .header {
+    border-radius: 5px;
+    padding: 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: $secondary-color;
+    background-color: #F8F9FC;
+    border-bottom: 1px solid #E3E6F0;
+  }
+  .content {
+    height: 300px;
+    overflow-x: auto;
+    padding: 0 10px;
+  }
+  margin-bottom: 60px;
+}
