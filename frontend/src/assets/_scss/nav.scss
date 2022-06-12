@@ -1,0 +1,13 @@
+nav {
+  padding: 20px;
+  margin-bottom: 25px;
+  background-color: #fff;
+  box-shadow: $box-shadow;
+  h1 {
+    font-size: 1.3em;
+    font-weight: 500;
+    display: inline;
+    color: $primary-color;
+    cursor: pointer;
+  }
+}
