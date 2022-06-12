@@ -30,11 +30,11 @@ router.get('/', async (req, res) => {
     logger.info('GET /book')
 
     const books = await getAll()
-    res.status(200).json(books)
+    return res.status(200).json(books)
 
   } catch (error) {
     logger.error(error)
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 })
 
@@ -46,15 +46,15 @@ router.get('/:id', async (req, res) => {
     const { error } = schema.validate(req.params)
     if (error) {
       logger.error(error)
-      res.status(400).json({ error: 'Validation error', fields: ['id']  })
+      return res.status(400).json({ error: 'Validation error', fields: ['id']  })
     }
 
     const book = await get(req.params.id)
-    res.status(200).json(book)
+    return res.status(200).json(book)
 
   } catch (error) {
     logger.error(error)
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 })
 
@@ -77,13 +77,13 @@ router.post('/', files, async (req, res) => {
       title: Joi.string().required(),
       author: Joi.string().required(),
       finishDate: Joi.date().allow(null),
-      rate: Joi.number().required(),
+      rate: Joi.number().allow(null),
       status: Joi.number().required()
     })
     const { error } = schema.validate(req.body)
     if (error) {
       logger.error(error)
-      res.status(400).json({ error: 'Validation error', fields: [...error.details.map(x => x.path[0])] })
+      return res.status(400).json({ error: 'Validation error', fields: [...error.details.map(x => x.path[0])] })
     }
 
     const book = await create(
@@ -107,7 +107,7 @@ router.post('/', files, async (req, res) => {
     res.status(201).json(book[0])
   } catch (error) {
     logger.error(error)
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 })
 
@@ -139,12 +139,12 @@ router.put('/:id', files, async (req, res) => {
     const { error: paramsError } = paramsSchema.validate(req.params)
     if (paramsError) {
       logger.error(paramsError)
-      res.status(400).json({ error: 'Validation error', fields: ['id']  })
+      return res.status(400).json({ error: 'Validation error', fields: ['id']  })
     }
     const { error: bodyError } = bodySchema.validate(req.body)
     if (bodyError) {
       logger.error(bodyError)
-      res.status(400).json({ error: 'Validation error', fields: [...bodyError.details.map(x => x.path[0])] })
+      return res.status(400).json({ error: 'Validation error', fields: [...bodyError.details.map(x => x.path[0])] })
     }
 
     const book = await update(
@@ -167,11 +167,11 @@ router.put('/:id', files, async (req, res) => {
       fs.unlinkSync(path.join(process.cwd(), process.env.DATA, 'book-temp', cover))
     }
 
-    res.status(200).json(book[0])
+    return res.status(200).json(book[0])
 
   } catch (error) {
     logger.error(error)
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 })
 
@@ -185,22 +185,22 @@ router.patch('/:id/status', async (req, res) => {
     const { error: paramsError } = paramsSchema.validate(req.params)
     if (paramsError) {
       logger.error(paramsError)
-      res.status(400).json({ error: 'Validation error', fields: ['id']  })
+      return res.status(400).json({ error: 'Validation error', fields: ['id']  })
     }
 
     const bodySchema = Joi.object().keys({ status: Joi.number().required() })
     const { error: bodyError } = bodySchema.validate(req.body)
     if (bodyError) {
       logger.error(bodyError)
-      res.status(400).json({ error: 'Validation error', fields: ['status'] })
+      return res.status(400).json({ error: 'Validation error', fields: ['status'] })
     }
 
     const book = await updateStatus(req.params.id, status)
-    res.status(200).json(book[0])
+    return res.status(200).json(book[0])
 
   } catch (error) {
     logger.error(error)
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 })
 
@@ -213,15 +213,15 @@ router.delete('/:id', async (req, res) => {
     const { error } = schema.validate(req.params)
     if (error) {
       logger.error(error)
-      res.status(400).json({ error: 'Validation error', fields: ['id']  })
+      return res.status(400).json({ error: 'Validation error', fields: ['id']  })
     }
 
     await remove(req.params.id)
-    res.status(200).json(true)
+    return res.status(200).json(true)
 
   } catch (error) {
     logger.error(error)
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message })
   }
 })
 
