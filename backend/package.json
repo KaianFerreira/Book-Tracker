@@ -2,9 +2,9 @@
   "name": "backend-template",
   "version": "1.0.0",
   "description": "backend template for fullstack apps",
-  "main": "src/server.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/server.js",
+    "start": "nodemon --exec babel-node src/index.js",
     "start:test": "set NODE_ENV=test&& npm run migration-rollback && npm run migration-latest && npm run start",
     "lint": "eslint",
     "migration-latest": "knex migrate:latest",
@@ -12,7 +12,7 @@
     "build-development": "rm -rf dist && webpack && cp .env dist/.env && cp package.json dist/ && cp -r migrations dist/ && cp knexfile.js dist/ && cp pm2.json dist/",
     "build-production": "rm -rf dist && webpack && cp .env.production dist/.env && cp package.json dist/ && cp -r migrations dist/ && cp knexfile.js dist/ && cp pm2.production.json dist/",
     "build-stage": "rm -rf dist && webpack && cp .env.stage dist/.env && cp package.json dist/ && cp -r migrations dist/ && cp knexfile.js dist/ && cp pm2.stage.json dist/",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
+    "test": "set NODE_ENV=test&& npm run migration-rollback && npm run migration-latest && jest"
   },
   "author": "Kaian Santos",
   "license": "ISC",

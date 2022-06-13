@@ -1,5 +1,8 @@
 import request from 'supertest'
-import app from '../src/server'
+import dotenv from 'dotenv'
+import app from '../src/app'
+
+dotenv.config({ path: '../.env.test' })
 
 export const api = request(app)
 

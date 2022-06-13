@@ -1,7 +1,9 @@
 import dotenv from 'dotenv'
 import knex from 'knex'
 import pg from 'pg'
-dotenv.config()
+dotenv.config({
+	path: String(process.env.NODE_ENV).trim() === 'test' ? '.env.test' : '.env'
+})
 
 const knexStringcase = require('knex-stringcase')
 

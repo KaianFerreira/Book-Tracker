@@ -1,7 +1,6 @@
 import logger from '../config/logger'
 import express from 'express'
 import cors from 'cors'
-import http from 'http'
 import path from 'path'
 import dotenv from 'dotenv'
 
@@ -11,9 +10,14 @@ import book from './book/routes'
 import bookStatus from './book-status/routes'
 
 // when node_env equalts test then load .env.test
-if (process.env.NODE_ENV === 'test') {
+if (String(process.env.NODE_ENV).trim() === 'test') {
 	dotenv.config({ path: '.env.test' })
-} else dotenv.config()
+} else {
+	console.log('NODE_ENV is not test')
+	dotenv.config()
+}
+
+
 logger.info('Starting server...')
 
 const app = express()
@@ -28,7 +32,7 @@ const router = express.Router()
 
 router.get('/version', async (req, res) => {
 	try {
-		console.log('teste')
+		console.log('here')
 		return res.send({ version: '1.0.0'})
 	} catch (error) {
 		error.component = `${req.method} /api${req.originalUrl}`
@@ -43,8 +47,4 @@ router.use('/book-status', bookStatus)
 app.use('/data', express.static(path.join(process.cwd(), process.env.DATA)))
 app.use('/', router)
 
-const server = http.createServer(app)
-const port = process.argv[2] ? process.argv[2] : process.env.PORT
-const test = server.listen(port, () => logger.info(`Server listening on port ${port}`))
-
-module.exports = test
+module.exports = app
