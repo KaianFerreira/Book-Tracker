@@ -13,7 +13,6 @@ import bookStatus from './book-status/routes'
 if (String(process.env.NODE_ENV).trim() === 'test') {
 	dotenv.config({ path: '.env.test' })
 } else {
-	console.log('NODE_ENV is not test')
 	dotenv.config()
 }
 
@@ -32,7 +31,6 @@ const router = express.Router()
 
 router.get('/version', async (req, res) => {
 	try {
-		console.log('here')
 		return res.send({ version: '1.0.0'})
 	} catch (error) {
 		error.component = `${req.method} /api${req.originalUrl}`
