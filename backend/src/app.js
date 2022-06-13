@@ -42,7 +42,7 @@ router.use('/log', log)
 router.use('/book', book)
 router.use('/book-status', bookStatus)
 
-app.use('/data', express.static(path.join(process.cwd(), process.env.DATA)))
+app.use('/data', express.static(path.join(process.cwd(), process.env.FOLDER_DATA)))
 app.use('/', router)
 
 module.exports = app

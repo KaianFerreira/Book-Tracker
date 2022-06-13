@@ -16,7 +16,7 @@ import {
 const router = express.Router()
 
 const upload = multer({
-  dest: path.join(process.cwd(), process.env.DATA, 'book-temp'),
+  dest: path.join(process.cwd(), process.env.FOLDER_DATA, 'book-temp'),
   limits: {
     // limit size of file to 20MB
     fileSize: 20 * 1024 * 1024

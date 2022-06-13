@@ -1,21 +1,26 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      <v-toolbar-title>Book-Tracker logo here</v-toolbar-title>
+      <v-toolbar-title class="d-flex align-center">
+        <ProjectLogo />
+      </v-toolbar-title>
     </v-app-bar>
     <v-main>
-      <router-view/>
-      <GlobalDialog/>
+      <div class="wrapper d-flex justify-center">
+        <router-view class="router-view"/>
+      </div>
     </v-main>
+    <GlobalDialog/>
   </v-app>
 </template>
 
 <script>
 import GlobalDialog from './components/GlobalDialog.vue'
+import ProjectLogo from './components/ProjectLogo.vue'
 export default {
   name: 'App',
   components: {
+    ProjectLogo,
     GlobalDialog
   },
 
@@ -24,3 +29,8 @@ export default {
   })
 }
 </script>
+<style lang="scss" scoped>
+.router-view {
+  max-width: 1980px;
+}
+</style>
