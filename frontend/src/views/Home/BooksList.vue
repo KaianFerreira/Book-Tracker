@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-wrap">
+  <div class="d-flex flex-wrap justify-center">
     <transition
       appear
       name="fade"
@@ -8,7 +8,7 @@
       v-for="book in books"
     >
       <v-hover v-slot="{ hover }">
-        <div class="d-flex justify ma-1">
+        <div class="d-flex ma-1">
           <v-card
             width="360"
             height="220"
@@ -27,11 +27,6 @@
                   {{ bookStatus.find(x => book.status === x.id).name }}
                 </v-list-item-subtitle>
               </v-list-item-content>
-              <v-list-item-avatar
-                tile
-                size="90"
-                color="grey"
-              ></v-list-item-avatar>
             </v-list-item>
             <v-card-actions class="d-block text-right">
               <div v-if="book.status === 3" class=" text-right">
@@ -62,7 +57,7 @@
               width="100%"
               @click="$router.push({ name: 'book', params: { id: book.id } })"
             >
-            <v-icon color="primary">
+            <v-icon color="grey darken-1">
               fa-pencil
             </v-icon>
             </v-btn>
@@ -75,7 +70,7 @@
               width="100%"
               @click="deleteBook(book.id)"
             >
-            <v-icon color="grey lighten-1">
+            <v-icon color="red accent-4">
               fa-trash
             </v-icon>
             </v-btn>
@@ -134,8 +129,8 @@ export default {
   transition: 0.3s;
   position: relative;
   z-index: 0;
-  left: -51px;
-  width: 50px;
+  left: -41px;
+  width: 40px;
   // top right and bottom right only with 5px radius
   display: flex;
   flex-direction: column;

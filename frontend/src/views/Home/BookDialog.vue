@@ -8,35 +8,38 @@
     <template>
       <v-card>
         <v-toolbar
-          color="primary"
-          dark
+          color="grey lighten-5"
         >
           Create Book
         </v-toolbar>
         <v-card-text>
           <v-form ref="bookForm" class="mt-5">
-            <v-text-field
-              v-model="book.title"
-              label="Title"
-              required
-              :rules="[v => !!v || 'Title is required']"
-            ></v-text-field>
-            <v-text-field
-              v-model="book.author"
-              label="Author"
-              required
-              :rules="[v => !!v || 'Author is required']"
-            ></v-text-field>
-            <v-select
-              v-model="book.status"
-              :items="bookStatus.map(x => ({
-                text: x.name,
-                value: x.id
-              }))"
-              label="Status"
-              required
-              :rules="[v => !!v || 'Status is required']"
-            ></v-select>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  v-model="book.title"
+                  label="Title"
+                  required
+                  :rules="[v => !!v || 'Title is required']"
+                ></v-text-field>
+                <v-text-field
+                  v-model="book.author"
+                  label="Author"
+                  required
+                  :rules="[v => !!v || 'Author is required']"
+                ></v-text-field>
+                <v-select
+                  v-model="book.status"
+                  :items="bookStatus.map(x => ({
+                    text: x.name,
+                    value: x.id
+                  }))"
+                  label="Status"
+                  required
+                  :rules="[v => !!v || 'Status is required']"
+                ></v-select>
+              </v-col>
+            </v-row>
             <transition
               appear
               name="fade"
@@ -67,6 +70,7 @@
             Cancel
           </v-btn>
           <v-btn
+            :loading="loading"
             color="primary"
             @click="save()"
           >
@@ -94,7 +98,10 @@ export default {
     }
   },
   data: () => ({
+    loading: true,
     book: {
+      cover: null,
+      imageFile: null,
       title: '',
       author: '',
       rate: 0,
@@ -118,6 +125,7 @@ export default {
       const book = await get(this.id)
       this.book = book
     }
+    this.loading = false
   },
   methods: {
     resetBook () {
@@ -137,12 +145,14 @@ export default {
       this.resetBook()
     },
     async save () {
+      this.loading = true
       const isValid = this.$refs.bookForm.validate()
       if (isValid) {
         if (this.id === 'new') await create(this.book)
         else await update(this.id, this.book)
         this.closeDialog()
       }
+      this.loading = false
     }
   }
 }

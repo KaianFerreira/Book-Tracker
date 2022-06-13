@@ -6,11 +6,11 @@ exports.up = function(knex) {
   return Promise.all([
     knex.schema.createTable('log', table => {
       table.increments('id').primary()
-      table.string('level')
-      table.string('from')
-      table.text('message')
-      table.text('meta')
-      table.text('stack')
+      table.string('level').comment('level of log. warning, error, info, debug')
+      table.string('from').comment('where log is from (api, web, etc)')
+      table.text('message').comment('message of log')
+      table.text('meta').comment('meta data of log if it has')
+      table.text('stack').comment('stack trace of log')
       table.timestamp('created_at').defaultTo(knex.fn.now())
     })
   ])
