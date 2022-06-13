@@ -4,7 +4,7 @@
   "description": "backend template for fullstack apps",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js",
+    "start": "npm run migration-latest && nodemon --exec babel-node src/index.js",
     "start:test": "set NODE_ENV=test&& npm run migration-rollback && npm run migration-latest && npm run start",
     "lint": "eslint",
     "migration-latest": "knex migrate:latest",
@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
